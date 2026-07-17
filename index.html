@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Threadstory BD - থ্রেড স্টোরি বিডি</title>
+    
+    <!-- গুগল বাংলা ফন্ট -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+
+        body {
+            background-color: #f5f6fa;
+            color: #2f3640;
+            padding-bottom: 50px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #f57224, #ff9800); /* দারাজ অরেঞ্জ থিম */
+            color: white;
+            text-align: center;
+            padding: 20px 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        header h1 {
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 13px;
+            opacity: 0.9;
+            margin-top: 3px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 12px auto;
+            padding: 0 8px;
+        }
+
+        #loading {
+            text-align: center;
+            margin: 50px 0;
+            font-size: 16px;
+            color: #f57224;
+            font-weight: 600;
+        }
+
+        .spinner {
+            border: 3px solid rgba(0,0,0,0.1);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border-left-color: #f57224;
+            animation: spin 1s linear infinite;
+            margin: 10px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* 🛒 দারাজের মতো ২-কলাম গ্রিড লেআউট */
+        #stories-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* পাশাপাশি ২টি করে কার্ড বসবে */
+            gap: 10px; /* কার্ডগুলোর মাঝখানের ফাঁকা জায়গা */
+        }
+
+        .story-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            border: 1px solid #eef2f3;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* দারাজের মতো একদম স্কয়ার ছবি */
+        .story-image {
+            width: 100%;
+            aspect-ratio: 1 / 1; /* ছবি গোলমাল না হয়ে চারকোনা থাকবে */
+            object-fit: cover;
+            display: block;
+            background-color: #eaeaea;
+        }
+
+        .story-details {
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: space-between;
+        }
+
+        .story-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #222;
+            margin-bottom: 5px;
+            line-height: 1.3;
+            /* লেখা খুব বড় হলে সর্বোচ্চ ২ লাইনে আটকে রাখবে */
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .story-desc {
+            font-size: 11px;
+            color: #5f6f81;
+            line-height: 1.4;
+            margin-bottom: 10px;
+            /* বিবরণ বড় হলে সর্বোচ্চ ৩ লাইনে আটকে রাখবে */
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* মিনি সাইজ দারাজ বাটন */
+        .daraz-btn {
+            display: block;
+            text-align: center;
+            background-color: #f57224;
+            color: white;
+            text-decoration: none;
+            padding: 8px;
+            font-weight: 700;
+            font-size: 12px;
+            border-radius: 6px;
+            margin-top: auto;
+            transition: background 0.2s;
+        }
+
+        .daraz-btn:active {
+            transform: scale(0.97);
+        }
+
+        .story-footer {
+            margin-top: 8px;
+            padding-top: 6px;
+            border-top: 1px dashed #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 10px;
+            color: #a0a0a0;
+        }
+
+        .no-data {
+            grid-column: span 2; /* মেসেজটি যেন পুরো স্ক্রিন জুড়ে আসে */
+            text-align: center;
+            padding: 40px 20px;
+            color: #888;
+            background: white;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Threadstory BD</h1>
+        <p>দারাজ বেস্ট ডিল ও রিসেলিং প্রোডাক্টস</p>
+    </header>
+
+    <div class="container">
+        <div id="loading">
+            <div class="spinner"></div>
+            <p>প্রোডাক্টগুলো লোড হচ্ছে...</p>
+        </div>
+        
+        <!-- গ্রিড কন্টেইনার -->
+        <div id="stories-container"></div>
+    </div>
+
+    <!-- ফায়ারবেস কোর এবং ডাটাবেজ SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+    <script>
+        // ফায়ারবেস কনফিগারেশন
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY_HERE", // 👈 এখানে আপনার অরিজিনাল API Key বসান
+            authDomain: "x-turnament-c3f77.firebaseapp.com",
+            databaseURL: "https://x-turnament-c3f77-default-rtdb.firebaseio.com/", 
+            projectId: "x-turnament-c3f77",
+            storageBucket: "x-turnament-c3f77.appspot.com",
+            appId: "YOUR_APP_ID_HERE" // 👈 এখানে আপনার অরিজিনাল App ID বসান
+        };
+
+        if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+        const storiesContainer = document.getElementById('stories-container');
+        const loadingElement = document.getElementById('loading');
+
+        database.ref("stories").on("value", (snapshot) => {
+            loadingElement.style.display = "none";
+            storiesContainer.innerHTML = ""; 
+
+            const data = snapshot.val();
+
+            if (data) {
+                Object.keys(data).reverse().forEach((key) => {
+                    const post = data[key];
+                    const title = post.title || "শিরোনামহীন প্রোডাক্ট";
+                    const description = post.description || "";
+                    const image = post.imageUrl || "";
+                    const darazUrl = post.darazUrl || ""; 
+                    const date = post.date || "আজ";
+
+                    // লিংক ভ্যালিডেশন
+                    let buttonHTML = "";
+                    if (darazUrl) {
+                        buttonHTML = `
+                            <a href="${darazUrl}" target="_blank" class="daraz-btn">
+                                🛍️ অর্ডার করুন
+                            </a>
+                        `;
+                    } else {
+                        buttonHTML = `
+                            <a href="javascript:void(0)" onclick="alert('এই প্রোডাক্টে কোনো দারাজ লিংক যুক্ত করা হয়নি!')" class="daraz-btn" style="background: #a4b0be;">
+                                ⚠️ লিংক নেই
+                            </a>
+                        `;
+                    }
+
+                    const cardHTML = `
+                        <div class="story-card">
+                            ${image ? `<img src="${image}" class="story-image" alt="Product" onerror="this.style.display='none'">` : ''}
+                            <div class="story-details">
+                                <div>
+                                    <h2 class="story-title">${title}</h2>
+                                    <p class="story-desc">${description}</p>
+                                </div>
+                                
+                                ${buttonHTML}
+
+                                <div class="story-footer">
+                                    <span>Threadstory</span>
+                                    <span>${date}</span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    storiesContainer.innerHTML += cardHTML;
+                });
+            } else {
+                storiesContainer.innerHTML = `<div class="no-data"><h3>কোনো প্রোডাক্ট পাওয়া যায়নি!</h3></div>`;
+            }
+        });
+    </script>
+</body>
+</html>
