@@ -1,236 +1,351 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>শুভ জন্মদিন বাবা! ❤️</title>
-    <!-- বাংলা ফ্রন্ট যুক্ত করা হয়েছে -->
-    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
-    
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Hind Siliguri', sans-serif;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday | Ultra Smooth Big 3D Space Heart</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        body {
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            color: #fff;
-            position: relative;
-        }
+    body, html {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: #020008;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, 'SolaimanLipi';
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #ffffff;
+    }
 
-        /* ব্যাকগ্রাউন্ড অ্যানিমেশনের ক্যানভাস */
-        canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
+    /* Canvas for Space & 3D Heart */
+    #spaceCanvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
 
-        /* মেইন কার্ড ডিজাইন */
-        .card {
-            position: relative;
-            z-index: 2;
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 40px 30px;
-            border-radius: 25px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
-            text-align: center;
-            max-width: 520px;
-            width: 90%;
-            animation: floatCard 4s ease-in-out infinite;
-        }
+    /* Glassmorphic Message Card Container */
+    .container {
+      position: absolute;
+      z-index: 2;
+      max-width: 580px;
+      width: 86%;
+      padding: 32px 24px;
+      background: rgba(12, 5, 25, 0.38); /* Extra translucent so heart shines through */
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-radius: 24px;
+      border: 1px solid rgba(255, 105, 180, 0.4);
+      box-shadow: 0 0 50px rgba(255, 20, 147, 0.35), inset 0 0 20px rgba(255, 255, 255, 0.1);
+      text-align: center;
+      
+      /* Hidden initially */
+      opacity: 0;
+      transform: scale(0.85) translateY(30px);
+      transition: opacity 1.5s ease-out, transform 1.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+      pointer-events: none;
+    }
 
-        @keyframes floatCard {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-12px); }
-        }
+    /* Revealed class added by JS */
+    .container.show {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+      pointer-events: auto;
+      animation: floatCard 4s ease-in-out infinite alternate 1.5s;
+    }
 
-        .icon {
-            font-size: 65px;
-            margin-bottom: 10px;
-            display: inline-block;
-            animation: pulseCake 1.5s infinite alternate;
-        }
+    @keyframes floatCard {
+      0% { transform: translateY(0px); }
+      100% { transform: translateY(-8px); }
+    }
 
-        @keyframes pulseCake {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.15) rotate(5deg); }
-        }
+    .heart-icon {
+      font-size: 2.8rem;
+      margin-bottom: 8px;
+      display: inline-block;
+      filter: drop-shadow(0 0 15px #ff2a6d);
+    }
 
-        h1 {
-            font-size: 2.5rem;
-            color: #ffde59;
-            text-shadow: 0 0 15px rgba(255, 222, 89, 0.6);
-            margin-bottom: 10px;
-        }
+    /* English Title */
+    .title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      background: linear-gradient(45deg, #ff758c, #ff7eb3, #ffdd67);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 18px;
+      text-shadow: 0 0 25px rgba(255, 117, 140, 0.6);
+    }
 
-        .love-text {
-            font-size: 1.8rem;
-            color: #ff66c4;
-            font-weight: 700;
-            margin-bottom: 18px;
-            text-shadow: 0 0 10px rgba(255, 102, 196, 0.5);
-        }
+    /* Bengali Message */
+    .message {
+      font-size: 1.12rem;
+      line-height: 1.8;
+      color: #f3ebfc;
+      margin-bottom: 14px;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+    }
 
-        p {
-            font-size: 1.15rem;
-            line-height: 1.8;
-            color: #e2e8f0;
-            margin-bottom: 25px;
-        }
+    .apology {
+      font-size: 1.08rem;
+      color: #ff9a9e;
+      font-weight: 600;
+      margin-bottom: 18px;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+    }
 
-        /* সুন্দর বাটন */
-        .btn {
-            background: linear-gradient(45deg, #ff007f, #7928ca);
-            color: white;
-            border: none;
-            padding: 12px 32px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 5px 20px rgba(255, 0, 127, 0.4);
-            transition: all 0.3s ease;
-            outline: none;
-        }
+    /* English Love Text */
+    .love-text {
+      font-size: 2.2rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      color: #ff2a6d;
+      text-shadow: 0 0 15px #ff2a6d, 0 0 35px #ff2a6d;
+      margin: 14px 0;
+      animation: pulse 1.5s infinite;
+    }
 
-        .btn:hover {
-            transform: scale(1.08);
-            box-shadow: 0 8px 25px rgba(255, 0, 127, 0.7);
-        }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+      100% { transform: scale(1); }
+    }
 
-        /* লুকানো চমক বার্তা */
-        .surprise-msg {
-            margin-top: 20px;
-            font-size: 1.4rem;
-            color: #00f2fe;
-            font-weight: bold;
-            display: none;
-            animation: fadeIn 0.8s ease forwards;
-            text-shadow: 0 0 10px rgba(0, 242, 254, 0.6);
-        }
+    /* English Wish */
+    .wish {
+      font-size: 1.22rem;
+      color: #fbc2eb;
+      font-weight: 700;
+      margin-top: 14px;
+      line-height: 1.6;
+      letter-spacing: 0.5px;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+    }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-    </style>
+    @media (max-width: 600px) {
+      .container {
+        padding: 24px 16px;
+      }
+      .title {
+        font-size: 1.65rem;
+      }
+      .message {
+        font-size: 0.98rem;
+      }
+      .love-text {
+        font-size: 1.75rem;
+      }
+      .wish {
+        font-size: 1.05rem;
+      }
+    }
+  </style>
 </head>
 <body>
 
-    <!-- অ্যানিমেশন ক্যানভাস -->
-    <canvas id="confettiCanvas"></canvas>
+  <!-- Background Space Canvas -->
+  <canvas id="spaceCanvas"></canvas>
 
-    <!-- কার্ড কনটেন্ট -->
-    <div class="card">
-        <div class="icon">🎂</div>
-        <h1>শুভ জন্মদিন বাবা! ❤️</h1>
-        <div class="love-text">✨ Love You Baba! ✨</div>
-        <p>
-            আমার জীবনের প্রতিটি পদক্ষেপে তোমার ভালোবাসা, দিকনির্দেশনা ও ত্যাগ আমাকে আজকের আমি করে তুলেছে। তুমি আমার সত্যিকারের সুপারহিরো! ঈশ্বর তোমাকে সর্বদা সুস্থ ও দীর্ঘায়ু রাখুন।
-        </p>
-        <button class="btn" onclick="showSurprise()">এখানে চাপ দিন বাবা 🎁</button>
-        <div class="surprise-msg" id="surprise">
-            💖 "তুমি পৃথিবীর সেরা বাবা!" 💖
-        </div>
+  <!-- Content Message Card -->
+  <div class="container" id="cardContainer">
+    <div class="heart-icon">💖</div>
+    <h1 class="title">Happy Birthday To You! 🎂✨</h1>
+    
+    <p class="message">
+      আমি তোমারে  অনেক ভালোবাসতাম, এখন পারিবারিক সমস্যার কারণে তোমাকে আমার ছাড়তে হচ্ছে...
+    </p>
+
+    <p class="apology">
+      সবকিছুর জন্য আমাকে মাফ করে দিও। 🙏
+    </p>
+
+    <div class="love-text">
+      I LOVE YOU ❤️
     </div>
 
-    <!--JavaScript অংশ-->
-    <script>
-        const canvas = document.getElementById('confettiCanvas');
-        const ctx = canvas.getContext('2d');
+    <p class="wish">
+      Happy Birthday To You! 🎈🎉<br>
+      Many Many Returns of the Day.
+    </p>
+  </div>
 
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+  <script>
+    const canvas = document.getElementById('spaceCanvas');
+    const ctx = canvas.getContext('2d');
+    const cardContainer = document.getElementById('cardContainer');
 
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
+    let width, height;
+    function resize() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
 
-        // পার্টিকেল (Hearts and Confetti) তৈরি
-        const particles = [];
-        const colors = ['#ff007f', '#ff66c4', '#ffde59', '#00f2fe', '#ffffff', '#7928ca'];
+    // 1. Space Stars Background
+    const stars = [];
+    const numStars = 280;
 
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 8 + 4;
-                this.speedX = Math.random() * 2 - 1;
-                this.speedY = Math.random() * -2 - 1;
-                this.color = colors[Math.floor(Math.random() * colors.length)];
-                this.shape = Math.random() > 0.5 ? 'circle' : 'heart';
-            }
+    for (let i = 0; i < numStars; i++) {
+      stars.push({
+        x: (Math.random() - 0.5) * 2000,
+        y: (Math.random() - 0.5) * 2000,
+        z: Math.random() * 1000,
+        size: Math.random() * 1.6 + 0.5,
+        color: `hsl(${Math.random() * 60 + 260}, 80%, 80%)`
+      });
+    }
 
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
+    // 2. High Density & Larger 3D Heart Particles
+    const heartParticles = [];
+    const numHeartParticles = 750; // Increased density for prominent shape
 
-                // উপর দিয়ে বের হয়ে গেলে নিচ থেকে আবার চালু হবে
-                if (this.y < 0) {
-                    this.y = canvas.height;
-                    this.x = Math.random() * canvas.width;
-                }
-            }
+    for (let i = 0; i < numHeartParticles; i++) {
+      let t = Math.PI * (Math.random() * 2 - 1);
+      let targetX = 16 * Math.pow(Math.sin(t), 3);
+      let targetY = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
+      let targetZ = (Math.random() - 0.5) * 12;
 
-            draw() {
-                ctx.fillStyle = this.color;
-                ctx.beginPath();
+      let angle = Math.random() * Math.PI * 2;
+      let dist = 350 + Math.random() * 450;
+      let startX = Math.cos(angle) * dist;
+      let startY = Math.sin(angle) * dist;
+      let startZ = (Math.random() - 0.5) * 450;
 
-                if (this.shape === 'circle') {
-                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                    ctx.fill();
-                } else {
-                    // হার্ট (Heart) শেপ আঁকার লজিক
-                    ctx.font = `${this.size * 2}px serif`;
-                    ctx.fillText('❤️', this.x, this.y);
-                }
-            }
+      heartParticles.push({
+        startX: startX,
+        startY: startY,
+        startZ: startZ,
+        targetX: targetX,
+        targetY: targetY,
+        targetZ: targetZ,
+        currX: startX,
+        currY: startY,
+        currZ: startZ,
+        size: Math.random() * 2.8 + 1.8, // Bigger glowing particle size
+        color: `hsl(${325 + Math.random() * 40}, 100%, ${65 + Math.random() * 25}%)`
+      });
+    }
+
+    // Timeline Configuration
+    const startTime = Date.now();
+    const DELAY_BEFORE_HEART = 1000; // 1s empty space
+    const FORM_DURATION = 2200;      // 2.2s heart formation
+    const SHOW_TEXT_TIME = 3500;      // Show text card
+
+    let angleY = 0;
+    let pulseScale = 1;
+    let pulseDirection = 0.005;
+    let cardRevealed = false;
+
+    // Fast & Smooth Render Loop
+    function render() {
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.fillStyle = 'rgba(2, 0, 8, 0.28)';
+      ctx.fillRect(0, 0, width, height);
+
+      const cx = width / 2;
+      const cy = height / 2;
+      const elapsed = Date.now() - startTime;
+
+      // --- Draw Space Stars ---
+      for (let i = 0; i < numStars; i++) {
+        let star = stars[i];
+        star.z -= 1.2;
+        if (star.z <= 0) star.z = 1000;
+
+        let k = 400 / star.z;
+        let px = star.x * k + cx;
+        let py = star.y * k + cy;
+
+        if (px >= 0 && px <= width && py >= 0 && py <= height) {
+          let size = Math.max(0.1, star.size * k);
+          ctx.beginPath();
+          ctx.arc(px, py, size, 0, Math.PI * 2);
+          ctx.fillStyle = star.color;
+          ctx.fill();
         }
+      }
 
-        function init() {
-            for (let i = 0; i < 60; i++) {
-                particles.push(new Particle());
-            }
+      // --- Heart Formation Calculation ---
+      let progress = 0;
+      if (elapsed > DELAY_BEFORE_HEART) {
+        progress = Math.min(1, (elapsed - DELAY_BEFORE_HEART) / FORM_DURATION);
+        progress = 1 - Math.pow(1 - progress, 3); // Smooth Ease-Out
+      }
+
+      // Reveal Text Card
+      if (elapsed >= SHOW_TEXT_TIME && !cardRevealed) {
+        cardContainer.classList.add('show');
+        cardRevealed = true;
+      }
+
+      // Rotation and Pulse
+      if (progress > 0.8) {
+        angleY += 0.012;
+        pulseScale += pulseDirection;
+        if (pulseScale > 1.12 || pulseScale < 0.88) {
+          pulseDirection *= -1;
         }
+      }
 
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => {
-                p.update();
-                p.draw();
-            });
-            requestAnimationFrame(animate);
+      // INCREASED SCALE: / 26 instead of / 45 makes the heart significantly bigger!
+      const heartScale = (Math.min(width, height) / 26) * pulseScale;
+
+      // --- Hardware Accelerated Glow Effect (Ultra Fast) ---
+      if (elapsed > DELAY_BEFORE_HEART) {
+        ctx.globalCompositeOperation = 'lighter'; // Additive blending for vivid glow
+
+        let cosY = Math.cos(angleY);
+        let sinY = Math.sin(angleY);
+
+        for (let i = 0; i < numHeartParticles; i++) {
+          let p = heartParticles[i];
+
+          // Interpolate position
+          p.currX = p.startX + (p.targetX - p.startX) * progress;
+          p.currY = p.startY + (p.targetY - p.startY) * progress;
+          p.currZ = p.startZ + (p.targetZ - p.startZ) * progress;
+
+          // Rotate around Y axis
+          let rx = p.currX * cosY - p.currZ * sinY;
+          let rz = p.currX * sinY + p.currZ * cosY;
+          let ry = p.currY;
+
+          // Scale
+          rx *= heartScale;
+          ry *= heartScale;
+
+          // 3D Perspective Projection
+          let fov = 380;
+          let distance = fov + rz * 5;
+          let scale = fov / distance;
+
+          let px = rx * scale + cx;
+          let py = ry * scale + cy;
+
+          // Draw Particle
+          ctx.beginPath();
+          ctx.arc(px, py, Math.max(0.6, p.size * scale), 0, Math.PI * 2);
+          ctx.fillStyle = p.color;
+          ctx.fill();
         }
+      }
 
-        init();
-        animate();
+      requestAnimationFrame(render);
+    }
 
-        // বাটনে ক্লিক করলে সারপ্রাইজ মেসেজ দেখানো ও অতিরিক্ত অ্যানিমেশন
-        function showSurprise() {
-            const msg = document.getElementById('surprise');
-            msg.style.display = 'block';
-
-            // ক্লিক করলে প্রচুর নতুন পার্টিকেল যুক্ত হবে (Fireworks effect)
-            for (let i = 0; i < 40; i++) {
-                particles.push(new Particle());
-            }
-        }
-    </script>
+    render();
+  </script>
 </body>
 </html>
